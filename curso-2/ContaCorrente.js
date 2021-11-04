@@ -1,9 +1,30 @@
+import { Cliente } from "./Cliente.js";
+
 export class ContaCorrente{
   agencia;
+  _cliente;
   // até esse momento o # ainda não está implementado e o padrão da comunidade
   // é usar um '_' no começo pra sinalizar que ela é privada. 
   #saldo = 0;
-  cliente;
+
+  set cliente(novoValor) {
+    if (novoValor instanceof Cliente) {
+      this._cliente = novoValor;
+    }
+  }
+
+  get cliente() {
+    return this._cliente;
+  }
+
+  get saldo() {
+    return this.#saldo;
+  }
+
+  constructor(cliente, agencia) {
+    this.agencia = agencia;
+    this.cliente = cliente;
+  }
 
   sacar(valor) {
     if (this.#saldo >= valor) {
@@ -19,11 +40,11 @@ export class ContaCorrente{
     if (valor <= 0) return "Erro: Deposito de valor zero ou negativo";
 
     this.#saldo += valor;
-    console.log("Depósito de %s para %s", valor, this.cliente.nome);
+    console.log("Depósito de %s para %s", valor, this._cliente.nome);
   }
 
   exibirSaldo() {
-    console.log("Saldo atual de %s: %s",this.cliente.nome, this.#saldo);
+    console.log("Saldo atual de %s: %s",this._cliente.nome, this.#saldo);
   }
 
   // variáveis primitivas (valor) chegam na função como cópias, enquanto que

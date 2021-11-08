@@ -60,3 +60,6 @@ console.log("Saldo atual de %s: %s", conta2.cliente.nome, conta2.saldo)
 // conta1.exibirSaldo();
 console.log("Saldo atual de %s: %s", conta1.cliente.nome, conta1.saldo)
 
+// exibindo o numero de contas
+console.log("Numero de contas: %s", ContaCorrente.numeroDeContas);
+

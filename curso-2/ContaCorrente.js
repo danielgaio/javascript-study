@@ -1,6 +1,7 @@
 import { Cliente } from "./Cliente.js";
 
 export class ContaCorrente{
+  static numeroDeContas = 0;
   agencia;
   _cliente;
   // até esse momento o # ainda não está implementado e o padrão da comunidade
@@ -24,6 +25,7 @@ export class ContaCorrente{
   constructor(cliente, agencia) {
     this.agencia = agencia;
     this.cliente = cliente;
+    ContaCorrente.numeroDeContas += 1;
   }
 
   sacar(valor) {

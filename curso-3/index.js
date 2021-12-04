@@ -1,5 +1,4 @@
 import { Cliente } from "./Cliente.js";
-import { Conta } from "./Conta.js";
 import { ContaCorrente } from "./ContaCorrente.js";
 import { ContaPoupanca } from "./ContaPoupanca.js";
 
@@ -18,11 +17,13 @@ contaCorrente1.depositar(100);
 console.log("\n");
 contaCorrente1.exibirSaldo();
 const valorSacado = contaCorrente1.sacar(50);
+contaCorrente1.sacar(50);
 // console.log("Valor sacado de %s: %s", contaCorrente1.cliente.nome, valorSacado);
 // contaCorrente1.exibirSaldo();
 // console.log("Saldo atual de %s: %s", contaCorrente1.cliente.nome, contaCorrente1.saldo);
 
 const contaPoupanca = new ContaPoupanca(50, cliente1, 1001);
+contaPoupanca.sacar(10);
 
 console.log(contaPoupanca);
 console.log(contaCorrente1);

@@ -10,4 +10,8 @@ export class Cliente{
 
   get rg() { return this._rg; }
 
+  autenticar() {
+    return true;
+  }
+
 }

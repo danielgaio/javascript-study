@@ -50,7 +50,7 @@ const cliente = new Cliente("Lais", 24743468345, 3456643223, "12345");
 // a função de login é polimórfica
 const gerenteEstaLogado = SistemaAutenticacao.login(gerente, "123");
 const diretorEstaLogado = SistemaAutenticacao.login(diretor, "123456");
-console.log(gerenteEstaLogado);
 
 const clienteEstaLogado = SistemaAutenticacao.login(cliente, "12345");
 
+console.log(gerenteEstaLogado, diretorEstaLogado, clienteEstaLogado);

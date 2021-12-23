@@ -22,8 +22,8 @@ const pessoa = {
 const pessoaComTelefone = { ...pessoa, telefone: 12121212121 }
 console.log(pessoa, pessoaComTelefone)
 
-const { nome } = pessoa
-console.log(nome)
+const { nomePessoa } = pessoa
+console.log(nomePessoa)
 
 // outra forma de destruction. Do objeto recebido já na listagem de parâmetros
 function imprimeDados({nome, idade}) {

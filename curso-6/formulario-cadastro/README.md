@@ -68,3 +68,13 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# Anotações de estudo
+
+Chamadas para useState não devem ser feitas dentro de condicionais.
+
+Hooks só devem ser chamados dentro de funções que são componentes do react. Essas funções devem
+começar com letra maiúscula e devem retornar um elemento html (uma árvore de resderização).
+
+Pra cada elemento que preciso quardar valor ou estado, preciso criar um hook.
+Ex: um hook para cada campo de um formulário de cadastro.

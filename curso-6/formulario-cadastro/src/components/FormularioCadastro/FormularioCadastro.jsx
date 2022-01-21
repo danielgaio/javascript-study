@@ -1,18 +1,20 @@
 import { Button, FormControlLabel, Switch, TextField } from "@material-ui/core";
 import React, { useState } from "react";
 
-function FormularioCadastro() {
+// As chaves servem para receber a propriedade de modo desconstruido
+function FormularioCadastro({aoEnviar, validarCpf}) {
   // retorna tupla com variavel e função que a modifica
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [cpf, setCpf] = useState("");
   const [promocoes, setPromocoes] = useState(true);
   const [novidades, setNovidades] = useState(true);
+  const [erros, setErros] = useState({cpf:{valido:true, texto:""}});
 
   return (
     <form onSubmit={(event) => {
       event.preventDefault();
-      console.log({ nome, sobrenome, cpf, novidades, promocoes });
+      aoEnviar({nome, sobrenome, cpf, novidades, promocoes});
     }}>
       <TextField
         value={nome}
@@ -41,6 +43,12 @@ function FormularioCadastro() {
         onChange={(event) => {
           setCpf(event.target.value);
         }}
+        onBlur={(event) => {
+          const ehValido = validarCpf(cpf);
+          setErros({cpf:ehValido});
+        }}
+        error={!erros.cpf.valido}
+        helperText={erros.cpf.texto}
         id="cpf"
         label="CPF"
         variant="outlined"

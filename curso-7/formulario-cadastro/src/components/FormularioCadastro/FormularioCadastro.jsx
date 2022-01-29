@@ -5,13 +5,19 @@ import DadosUsuario from "./DadosUsuario";
 
 // As chaves servem para receber a propriedade de modo desconstruido
 function FormularioCadastro({aoEnviar, validarCpf}) {
-  return (
-    <>
-      <DadosPessoais aoEnviar={aoEnviar} validarCpf={ validarCpf }/>
-      <DadosUsuario />
-      <DadosEntrega />
-    </>
-  );
+  const [etapaAtual, setEtapaAtual] = useState(0);
+  
+  const formularios = [
+    <DadosUsuario aoEnviar={proximo} />,
+    <DadosPessoais aoEnviar={proximo} validarCpf={validarCpf} />,
+    <DadosEntrega aoEnviar={aoEnviar} />
+  ];
+
+  function proximo() {
+    setEtapaAtual(etapaAtual + 1);
+  }
+
+  return <> { formularios[etapaAtual] } </>;
 }
 
 export default FormularioCadastro;

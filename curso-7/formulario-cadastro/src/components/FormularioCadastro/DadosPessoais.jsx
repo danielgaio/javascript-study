@@ -2,14 +2,22 @@ import { Button, FormControlLabel, Switch, TextField } from "@material-ui/core";
 import React, { useState } from "react";
 
 // As chaves servem para receber a propriedade de modo desconstruido
-function DadosPessoais({aoEnviar, validarCpf}) {
+function DadosPessoais({aoEnviar, validacoes}) {
   // retorna tupla com variavel e função que a modifica
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [cpf, setCpf] = useState("");
   const [promocoes, setPromocoes] = useState(true);
   const [novidades, setNovidades] = useState(true);
-  const [erros, setErros] = useState({cpf:{valido:true, texto:""}});
+  const [erros, setErros] = useState({ cpf: { valido: true, texto: "" } });
+  
+  function validarCampos(event) {
+    const { name, value } = event.target;
+    const ehValido = validacoes[name](value);
+    const novoEstado = { ...erros, name: ehValido };
+    setErros(novoEstado);
+    console.log(novoEstado);
+  }
 
   return (
     <form onSubmit={(event) => {
@@ -43,13 +51,11 @@ function DadosPessoais({aoEnviar, validarCpf}) {
         onChange={(event) => {
           setCpf(event.target.value);
         }}
-        onBlur={(event) => {
-          const ehValido = validarCpf(cpf);
-          setErros({cpf:ehValido});
-        }}
+        onBlur={validarCampos}
         error={!erros.cpf.valido}
         helperText={erros.cpf.texto}
         id="cpf"
+        name="cpf"
         label="CPF"
         variant="outlined"
         fullWidth

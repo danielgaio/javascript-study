@@ -1,35 +1,56 @@
 import { Button, FormControlLabel, Switch, TextField } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import ValidacoesCadastro from "../../contexts/ValidacoesCadastro";
 
 // As chaves servem para receber a propriedade de modo desconstruido
-function DadosPessoais({aoEnviar, validacoes}) {
+function DadosPessoais({aoEnviar}) {
   // retorna tupla com variavel e função que a modifica
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [cpf, setCpf] = useState("");
   const [promocoes, setPromocoes] = useState(true);
   const [novidades, setNovidades] = useState(true);
-  const [erros, setErros] = useState({ cpf: { valido: true, texto: "" } });
-  
+  const [erros, setErros] = useState({
+    cpf: { valido: true, texto: "" },
+    nome: { valido: true, texto: "" }
+  });
+
+  const validacoes = useContext(ValidacoesCadastro);
+
   function validarCampos(event) {
     const { name, value } = event.target;
-    const ehValido = validacoes[name](value);
-    const novoEstado = { ...erros, name: ehValido };
+    const novoEstado = { ...erros};
+    novoEstado[name] = validacoes[name](value);
     setErros(novoEstado);
-    console.log(novoEstado);
+  }
+
+  function possoEnviar() {
+    for (let campo in erros) {
+      if (!erros[campo].valido) {
+        return false;
+      }
+    }
+    return true;
   }
 
   return (
     <form onSubmit={(event) => {
       event.preventDefault();
-      aoEnviar({nome, sobrenome, cpf, novidades, promocoes});
+      if (possoEnviar()) {
+        aoEnviar({nome, sobrenome, cpf, novidades, promocoes});
+      }
+
     }}>
       <TextField
         value={nome}
         onChange={(event) => {
           setNome(event.target.value);
         }}
+        onBlur={validarCampos}
+        error={!erros.nome.valido}
+        helperText={erros.nome.texto}
         id="nome"
+        name="nome"
         label="Nome"
         variant="outlined"
         fullWidth
@@ -41,6 +62,7 @@ function DadosPessoais({aoEnviar, validacoes}) {
           setSobrenome(event.target.value);
         }}
         id="sobrenome"
+        name="sobrenome"
         label="Sobrenome"
         variant="outlined"
         fullWidth
@@ -86,7 +108,7 @@ function DadosPessoais({aoEnviar, validacoes}) {
       />
 
       <Button type="submit" variant="contained" color="primary">
-        Cadastrar
+        Próximo
       </Button>
     </form>
   );

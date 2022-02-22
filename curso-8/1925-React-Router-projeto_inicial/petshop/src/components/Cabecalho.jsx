@@ -27,9 +27,13 @@ const Cabecalho = () => {
             <a href="#" className="menu-item">
               Produtos
             </a>
+          </li>
+          <li>
             <a href="/" className="menu-item">
               Blog
             </a>
+          </li>
+          <li>
             <a href="/sobre" className="menu-item">
               Sobre
             </a>

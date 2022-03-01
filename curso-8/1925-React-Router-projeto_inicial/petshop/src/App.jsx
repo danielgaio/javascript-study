@@ -6,6 +6,7 @@ import Home from "./paginas/Home";
 import Pagina404 from "./paginas/Pagina404";
 import Sobre from "./paginas/Sobre";
 import Post from "./paginas/Post";
+import Categoria from "./paginas/Categoria";
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
         </Route>
         <Route path="/sobre">
           <Sobre />
+        </Route>
+        <Route path='/categoria/:id'>
+          <Categoria/>
         </Route>
         <Route path="/posts/:id">
           <Post />

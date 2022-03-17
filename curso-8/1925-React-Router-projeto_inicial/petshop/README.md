@@ -72,6 +72,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ## Comando para iniciar o servidor local com base no arquivo db.json
 
-É usado o pacote json-server.
+É usado o pacote json-server. O terminal deve estar posicionado na raiz do projeto petshop.
 
 > npx json-server --watch db.json --port 5000

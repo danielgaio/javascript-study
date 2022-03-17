@@ -6,6 +6,7 @@ import ListaPost from "../components/ListaPost";
 
 const Categoria = () => {
   const { id } = useParams()
+  console.log(id)
   const {path} = useRouteMatch()
   return (
     <>

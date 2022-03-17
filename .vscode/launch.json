@@ -5,22 +5,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "pwa-node",
+      "type": "pwa-chrome",
       "request": "launch",
-      "name": "7-Loops",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "program": "${workspaceFolder}/7-loops.js"
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "5-Condicionais",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "program": "${workspaceFolder}/5-condicionais.js"
+      "name": "petshop chrome",
+      "url": "http://localhost:3000",
+      "webroot": "${workspaceFolder}"
     }
   ]
 }

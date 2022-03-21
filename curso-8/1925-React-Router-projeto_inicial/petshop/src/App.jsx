@@ -20,7 +20,7 @@ function App() {
           <Sobre />
         </Route>
         <Route path='/categoria/:id'>
-          <Categoria/>
+          <Categoria />
         </Route>
         <Route path="/posts/:id">
           <Post />

@@ -5,6 +5,7 @@ import "../assets/css/blog.css";
 
 const ListaCategorias = () => {
   const [categorias, setCategorias] = useState([]);
+
   useEffect(() => {
     busca(`/categorias`, setCategorias);
   }, []);

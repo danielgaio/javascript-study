@@ -1,63 +1,74 @@
-import React from 'react'
-import './styles/index.scss'
-
-import Raca from './components/Raca'
-import ListaRacas from './components/ListaRacas'
-import Cabecalho from './components/Cabecalho'
-
-import { buscaSobreRacas, buscaImagemPorRaca, buscaTodasRacas } from './api'
-import StatusContext from './context/status'
+import React from "react";
+import { buscaImagemPorRaca, buscaSobreRacas, buscaTodasRacas } from "./api";
+import Cabecalho from "./components/Cabecalho";
+import ListaRacas from "./components/ListaRacas";
+import Raca from "./components/Raca";
+import StatusContext from "./context/status";
+import "./styles/index.scss";
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       racas: [],
       racaSelecionada: {},
-      status: 'Você ainda não selecionou nenhum cachorro :('
-    }
-
+      status: "Você ainda não selecionou nenhum cachorro :(",
+    };
   }
 
   componentDidMount() {
-    this.carregaInformacoesIniciais()
+    this.carregaInformacoesIniciais();
   }
 
   carregaInformacoesIniciais() {
     buscaSobreRacas()
-      .then(informacoes => {
-        this.carregaListaRacas(informacoes)
+      .then((informacoes) => {
+        this.carregaListaRacas(informacoes);
       })
-      .catch(erro => this.setState({
-        status: 'Oops, algo deu errado no carregamento da página. Pode tentar novamente?'
-      }))
-    }
-
-    carregaListaRacas(sobreRacas) {
-      buscaTodasRacas()
-        .then(racas => {
-          const listaRacasMostradas = sobreRacas.filter(
-            sobre => racas.includes(sobre.name.toLowerCase())
-          )
-          this.setState({ racas: [...listaRacasMostradas] })
+      .catch((erro) =>
+        this.setState({
+          status:
+            "Oops, algo deu errado no carregamento da página. Pode tentar novamente?",
         })
-    }
-
-    selecionaRaca = raca => {
-      const infoSelecionada = this.state.racas.filter(infoRaca => infoRaca.name === raca)
-
-      buscaImagemPorRaca(raca)
-        .then(imagem => this.setState({
-          racaSelecionada: {...this.state.racaSelecionada, imagem, ...infoSelecionada[0]},
-          status: 'A imagem sempre será diferente, pode clicar quantas vezes quiser!'
-        }))
-        .catch(erro => {
-          const eh404 = erro.response.status === 404
-          const mensagem = eh404 ? 'Não encontramos essa raça :(' : 'Oops, algo deu errado. Pode tentar novamente?'
-
-          this.setState({status: mensagem})
-        })
+      );
   }
+
+  carregaListaRacas(sobreRacas) {
+    buscaTodasRacas().then((racas) => {
+      const listaRacasMostradas = sobreRacas.filter((sobre) =>
+        racas.includes(sobre.name.toLowerCase())
+      );
+      this.setState({ racas: [...listaRacasMostradas] });
+    });
+  }
+
+  selecionaRaca = (raca) => {
+    const infoSelecionada = this.state.racas.filter(
+      (infoRaca) => infoRaca.name === raca.toLowerCase()
+    );
+
+    buscaImagemPorRaca(raca.toLowerCase())
+      .then((imagem) =>
+        this.setState({
+          racaSelecionada: {
+            ...this.state.racaSelecionada,
+            imagem,
+            ...infoSelecionada[0],
+          },
+          status:
+            "A imagem sempre será diferente, pode clicar quantas vezes quiser!",
+        })
+      )
+      .catch((erro) => {
+        const eh404 = erro.response.status === 404;
+        const mensagem = eh404
+          ? "Não encontramos essa raça :("
+          : "Oops, algo deu errado. Pode tentar novamente?";
+
+        this.setState({ status: mensagem });
+      });
+    // console.log(this.state.racaSelecionada);
+  };
 
   render() {
     return (
@@ -75,4 +86,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default App;

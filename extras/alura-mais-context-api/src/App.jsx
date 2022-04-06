@@ -3,6 +3,8 @@ import { buscaImagemPorRaca, buscaSobreRacas, buscaTodasRacas } from "./api";
 import Cabecalho from "./components/Cabecalho";
 import ListaRacas from "./components/ListaRacas";
 import Raca from "./components/Raca";
+import RacasContext from "./context/racas";
+import RacaSelecionadaContext from "./context/racaSelecionada";
 import StatusContext from "./context/status";
 import "./styles/index.scss";
 
@@ -10,7 +12,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      racas: [],
+      racasContext: {
+        racas: [],
+        selecionaRaca: this.selecionaRaca,
+      },
       racaSelecionada: {},
       status: "Você ainda não selecionou nenhum cachorro :(",
     };
@@ -38,12 +43,17 @@ class App extends React.Component {
       const listaRacasMostradas = sobreRacas.filter((sobre) =>
         racas.includes(sobre.name.toLowerCase())
       );
-      this.setState({ racas: [...listaRacasMostradas] });
+      this.setState({
+        racasContext: {
+          ...this.state.racasContext,
+          racas: [...listaRacasMostradas],
+        },
+      });
     });
   }
 
   selecionaRaca = (raca) => {
-    const infoSelecionada = this.state.racas.filter(
+    const infoSelecionada = this.state.racasContext.racas.filter(
       (infoRaca) => infoRaca.name === raca.toLowerCase()
     );
 
@@ -67,7 +77,6 @@ class App extends React.Component {
 
         this.setState({ status: mensagem });
       });
-    // console.log(this.state.racaSelecionada);
   };
 
   render() {
@@ -76,11 +85,14 @@ class App extends React.Component {
         <StatusContext.Provider value={this.state.status}>
           <Cabecalho />
         </StatusContext.Provider>
-        <Raca raca={this.state.racaSelecionada} />
-        <ListaRacas
-          racas={this.state.racas}
-          selecionaRaca={this.selecionaRaca}
-        />
+
+        <RacaSelecionadaContext.Provider value={this.state.racaSelecionada}>
+          <Raca />
+        </RacaSelecionadaContext.Provider>
+
+        <RacasContext.Provider value={this.state.racasContext}>
+          <ListaRacas />
+        </RacasContext.Provider>
       </div>
     );
   }

@@ -4,7 +4,7 @@ import StatusContext from '../../context/status'
 
 const Status = () => (
   <StatusContext.Consumer>
-    {status => <p className="status">{status}</p>}
+    {status => (<p className="status">{status}</p>)}
   </StatusContext.Consumer>
 );
 

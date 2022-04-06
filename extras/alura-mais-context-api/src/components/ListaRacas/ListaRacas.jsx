@@ -1,20 +1,24 @@
 import React from "react";
+import RacasContext from "../../context/racas";
 import "./styles.scss";
 
-const ListaRacas = (props) => {
-  // console.log("Aqui ..", props.racas);
+const ListaRacas = () => {
   return (
-    <ul className="lista-racas">
-      {props.racas.map((raca) => (
-        <li
-          className="lista-racas__item"
-          key={raca.id}
-          onClick={() => props.selecionaRaca(raca.name)}
-        >
-          {raca.name}
-        </li>
-      ))}
-    </ul>
+    <RacasContext.Consumer>
+      {({ racas, selecionaRaca }) => (
+        <ul className="lista-racas">
+          {racas.map((raca) => (
+            <li
+              className="lista-racas__item"
+              key={raca.id}
+              onClick={() => selecionaRaca(raca.name)}
+            >
+              {raca.name}
+            </li>
+          ))}
+        </ul>
+      )}
+    </RacasContext.Consumer>
   );
 };
 

@@ -1,19 +1,15 @@
-import React from 'react'
+import React from "react";
+import RacaSelecionadaContext from "../../context/racaSelecionada";
+import RacaNaoSelecionada from "../RacaNaoSelecionada";
+import RacaSelecionada from "../RacaSelecionada";
 
-import RacaSelecionada from '../RacaSelecionada'
-import RacaNaoSelecionada from '../RacaNaoSelecionada'
+const Raca = () => (
+  <RacaSelecionadaContext.Consumer>
+    {({ imagem }) => {
+      const racaFoiSelecionada = Boolean(imagem);
+      return racaFoiSelecionada ? <RacaSelecionada /> : <RacaNaoSelecionada />;
+    }}
+  </RacaSelecionadaContext.Consumer>
+);
 
-const Raca = props => {
-  // const racaFoiSelecionada = Boolean(props.raca.name)
-  const racaFoiSelecionada = Boolean(props.raca.imagem);
-
-  return (
-    racaFoiSelecionada
-    ?
-    <RacaSelecionada {...props} />
-    :
-    <RacaNaoSelecionada />
-  )
-}
-
-export default Raca
+export default Raca;

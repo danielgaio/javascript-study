@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import Item from '../Item'
+import Item from "../Item";
+import ImageFilter from "../ImageFilter";
 
 const Items = styled.div`
   box-shadow: 4px 4px 20px 0px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   margin: 2px 0;
-  display: flez;
+  display: flex;
   align-items: center;
   justify-content: space-around;
   padding: 10px;
@@ -14,8 +15,11 @@ const Items = styled.div`
 `;
 
 export default (props) => {
-  return
-  <Items>
-    <Item />
-  </Items>;
+  return (
+    <Items>
+      {ImageFilter(props.type)}
+      <Item {...props} />
+      <span>{ props.date }</span>
+    </Items>
+  );
 };

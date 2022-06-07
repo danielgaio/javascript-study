@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import Cabecalho from "./Components/Cabecalho";
 import Container from "./Components/Container";
@@ -9,6 +9,9 @@ function App() {
   return (
     <ThemeProvider theme={temaEscuro}>
       <GlobalStyle />
+      <BtnTema>
+        <SwitcherTema />
+      </BtnTema>
       <Cabecalho />
       <Container />
     </ThemeProvider>
